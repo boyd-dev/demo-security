@@ -20,9 +20,9 @@ public AuthenticationManager authenticationManager(UserDetailsService userDetail
 ```
 위의 코드처럼 `ProviderManager`를 리턴하여 인증 관리자를 만들 수 있게 되는 것입니다.  `DaoAuthenticationProvider`는 실제로 데이터베이스로부터 사용자정보를 가져오는 `UserDetailsService`와 패스워드 인코딩에 필요한 `PasswordEncoder`를 주입받게 됩니다.  
 
-이러한 맥락으로 보면 결국 구현할 것은 `UserDetailsService`와 `PasswordEncoder`인데 시큐리티에서 디폴트로 제공되는 구현체들이 있기 때문에 이것들을 잘 참고하여 커스텀한 인증 관리자를 만들 수 있을 것입니다. 이렇게 만든 `AuthenticationManager`는 `HttpSecurity`의 `authenticationManager`에 설정해 줄 수 있습니다.  
+이러한 맥락에서 보면 결국 구현할 것은 `UserDetailsService`와 `PasswordEncoder`인데 시큐리티에서 디폴트로 제공되는 구현체들이 있기 때문에 이것들을 잘 참고하여 커스텀한 인증 관리자를 만들 수 있을 것입니다. 이렇게 만든 `AuthenticationManager`는 `HttpSecurity`의 `authenticationManager`에 설정해 줄 수 있습니다.  
 
-여기서는 가장 간단하게 `JdbcUserDetailsManager` 클래스를 사용해보겠습니다. 이 클래스는 시큐리티가 제공하는 디폴트 설정을 그대로 이용하는 `UserDetailsService`입니다. 아래와 같은 빈을 설정해주기만 하면 되겠습니다.
+여기서는 가장 간단하게 시큐리티에 있는 `JdbcUserDetailsManager` 클래스를 사용해보겠습니다. 이 클래스는 시큐리티의 디폴트 설정을 그대로 이용하는 `UserDetailsService`입니다. 아래와 같은 빈을 설정해주기만 하면 되겠습니다.
 
 ```
 @Bean
