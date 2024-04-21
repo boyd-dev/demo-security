@@ -33,7 +33,7 @@ public UserDetailsService jdbcUserDetailsService() {
 	return userDetailsManager;
 }
 ```
-데이터베이스 사용자 테이블로부터 사용자 정보를 조회하기 때문에 `DataSource`가 필요합니다. 사용자 테이블 스키마는 스프링 시큐리티가 제공하는 [ddl](https://docs.spring.io/spring-security/reference/5.8/servlet/authentication/passwords/jdbc.html#servlet-authentication-jdbc-schema)을 참고하여 만듭니다. 
+데이터베이스 사용자 테이블로부터 사용자 정보를 조회하기 때문에 `DataSource`가 필요합니다. 사용자 테이블 스키마는 스프링 시큐리티가 제공하는 [ddl](https://docs.spring.io/spring-security/reference/5.8/servlet/authentication/passwords/jdbc.html#servlet-authentication-jdbc-schema)을 참고하여 만듭니다. 사용된 SQL문은 [여기](https://github.com/boyd-dev/demo-security/blob/main/example/demog-mvc/src/main/resources/members.sql)에 있습니다.
 
 패스워드 인코더 역시 기본으로 제공되는 [`DelegatingPasswordEncoder`](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/crypto/password/DelegatingPasswordEncoder.html)를 사용합니다. 이렇게 기본만을 사용하는 경우 작성하는 코드는 아래와 같은 빈 하나입니다.
 
