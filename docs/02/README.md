@@ -5,6 +5,6 @@ implementation "org.springframework.security:spring-security-web:$springSecurity
 implementation "org.springframework.security:spring-security-config:$springSecurityVersion"
 
 ```
-다른 라이브러리도 마찬가지겠지만 스프링 시큐리티 버전에 따라 보안 취약점(vulnerability)이 있을 수 있으므로 어떤 내용인지 확인하고 주의할 필요가 있습니다. 라이브러리 레포지토리인 [메이븐 센트럴](https://mvnrepository.com/artifact/org.springframework.security/spring-security-web/5.8.10)에 이러한 정보들이 나와 있습니다.
+다른 라이브러리도 마찬가지겠지만 스프링 시큐리티 버전에 따라 보안 취약점(vulnerability)이 있을 수 있으므로 어떤 내용인지 확인하고 주의가 필요합니다. 라이브러리 레포지토리인 [메이븐 센트럴](https://mvnrepository.com/artifact/org.springframework.security/spring-security-web/5.8.10)에 이러한 정보들이 나와 있습니다.
 
 [처음](../README.md) | [다음](../03/README.md)
