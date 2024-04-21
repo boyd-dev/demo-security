@@ -12,9 +12,9 @@
 
 ```
 public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
-	// do something before the rest of the application
-    chain.doFilter(request, response); // invoke the rest of the application
-    // do something after the rest of the application
+   // do something before the rest of the application
+   chain.doFilter(request, response); // invoke the rest of the application
+   // do something after the rest of the application
 }
 ```
 스프링 시큐리티 공식 문서에 이러한 필터 기술을 어떻게 이용하고 있는지 잘 설명되어 있습니다. 스프링 프레임워크의 `DelegatingFilterProxy`라는 필터를 사용하여 시큐리티의 `FilterChainProxy`라는 빈에게 그 역할을 위임하고 이것은 다시 시큐리티가 제공하는 "Security filter chain"을 구동하도록 되어 있습니다. 공식 문서의 그림을 그대로 인용해보겠습니다.
