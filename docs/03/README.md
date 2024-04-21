@@ -80,7 +80,7 @@ public class SecurityConfig {
             .formLogin(Customizer.withDefaults());
 		
         return http.build();
-	}
+    }
 }
 ```
 이 코드는 약간 복잡해 보이지만 시큐리티 설정이 어떻게 이루어지는지 잘 보여주고 있습니다.  
