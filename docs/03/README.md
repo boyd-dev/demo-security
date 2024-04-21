@@ -83,7 +83,7 @@ public class SecurityConfig {
     }
 }
 ```
-이 코드는 약간 복잡해 보이지만 시큐리티 설정이 어떻게 이루어지는지 잘 보여주고 있습니다.  
+이 코드는 약간 복잡해 보이지만 시큐리티 설정이 어떻게 이루어지는지 잘 보여주고 있습니다("람다 DSL"이라고 하는 방식).  
 
 인자로 전달받는 `HttpSecurity` 클래스는 과거 `web.xml`에서 security 네임스페이스의 `<security:http>`에 해당하는 것이라고 생각하면 되겠습니다. `HttpSecurity` 클래스의 메소드들은 많기 때문에 [API 문서](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/config/annotation/web/builders/HttpSecurity.html)를 참조하는 것이 좋습니다. 
 
@@ -105,7 +105,7 @@ HTTP 기본 인증(아이디와 패스워드)을 수행합니다. 이것 역시 
 - `formLogin`  
 아이디와 패스워드를 입력받을 수 있는 기본 화면을 설정합니다. 마찬가지로 인자로 전달되는 `FormLoginConfigurer`의 설정을 변경하여 화면과 로그인 처리를 원하는대로 바꿀 수 있습니다. 여기서는 `withDefaults`로 디폴트 설정을 그대로 유지합니다.
 
-정리하면 위의 빈 설정은 모든 인바운드 요청에 대해 아이디 패스워드 로그인을 해야하는 HTTP 기본 인증을 사용하겠다는 시큐리티 설정이 되겠습니다.
+정리하면 위의 빈 설정은 모든 인바운드 요청에 대해 아이디 패스워드 로그인 기반의 HTTP 기본 인증을 사용하겠다는 의미가 되겠습니다.
 
 ## CSRF 필터
 잘 알려진 해킹 공격 중 하나로 CSRF(Cross Site Request Forgery)가 있습니다. 이것은 이미 인증을 받은 정상 사용자가 자신도 모르게 공격자가 심어놓은 요청을 보내면서 공격자가 의도한 요청이 서버에서 실행되도록 하는 해킹 기법입니다. 서버는 이 요청이 이미 인증을 받은 사용자가 보내는 요청이라고 판단하기 때문에 그대로 실행합니다.  
