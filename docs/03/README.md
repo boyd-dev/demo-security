@@ -50,7 +50,8 @@ public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletI
 	protected Class<?>[] getServletConfigClasses() {
 		return new Class<?>[] {
 			WebConfig.class,
-			SecurityConfig.class // Security config		
+			SecurityConfig.class // Security config	
+			AppConfig.class	
 		};
 	}
    ...
