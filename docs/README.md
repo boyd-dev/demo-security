@@ -26,4 +26,5 @@
 
 
 참고  
-[Spring Security docs 5.8](https://docs.spring.io/spring-security/reference/5.8/)
+[Spring Security docs 5.8](https://docs.spring.io/spring-security/reference/5.8/)  
+[Spring Security API](https://docs.spring.io/spring-security/site/docs/5.8.x/api/)
