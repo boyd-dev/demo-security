@@ -1,9 +1,9 @@
 ## 아이디 패스워드 인증
 아이디와 패스워드는 가장 일반적이고 보편적인 인증 방식입니다. "로그인"이라고 하면 데이터베이스에 저장된 사용자 정보로부터 입력된 사용자를 식별하고 패스워드를 확인하여 인증하는 방식을 떠올리는 경우가 많습니다. 스프링 시큐리티는 이렇게 사용자가 미리 입력한 정보를 바탕으로 인증하는 방식으로 [아이디 패스워드](https://docs.spring.io/spring-security/reference/5.8/servlet/authentication/passwords/index.html#servlet-authentication-unpwd) 인증을 지원합니다.  
 
-인증을 관리하는 인터페이스로 `AuthenticationManager`가 있습니다. 말 그대로 "인증 관리자"입니다. 그런데 인증이라는 것도 다양한 방식이 있을 수 있으므로 다수의 인증 방식들을 제공하는 여러 `AuthenticationProvider`들이 존재할 수 있습니다. `AuthenticationProvider`를 구현한 [클래스](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/authentication/AuthenticationProvider.html)들을 보면 시큐리티가 지원하는 인증 방식들을 알 수 있습니다. 
+시큐리티에는 인증을 관리하는 인터페이스로 `AuthenticationManager`가 있습니다. 말 그대로 "인증 관리자"입니다. 그런데 인증이라는 것도 다양한 방식이 있을 수 있으므로 다수의 인증 방식들을 제공하는 여러 `AuthenticationProvider`들이 존재할 수 있습니다. `AuthenticationProvider`를 구현한 [클래스](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/authentication/AuthenticationProvider.html)들을 보면 시큐리티가 지원하는 인증 방식들을 알 수 있습니다. 
 
-시큐리티는 `AuthenticationManager` 구현체로 `ProviderManager`를 가지고 있습니다. 이 클래스는 생성자 인자로 `AuthenticationProvider`를 받습니다. 데이터베이스(JDBC)로부터 사용자 정보를 확인할 수 있도록 마련된 `AuthenticationProvider`의 구현체는 `DaoAuthenticationProvider`입니다. 따라서 아래와 유사한 예제 [코드](https://docs.spring.io/spring-security/reference/5.8/servlet/authentication/passwords/index.html#customize-global-authentication-manager)를 볼 수 있습니다.
+시큐리티는 `AuthenticationManager` 구현체로 `ProviderManager`를 가지고 있습니다. 이 클래스는 생성자 인자로 `AuthenticationProvider`를 받습니다. 예를 들어 데이터베이스(JDBC)로부터 사용자 정보를 확인할 수 있도록 마련된 `AuthenticationProvider`의 구현체는 `DaoAuthenticationProvider`입니다. 따라서 아래와 유사한 예제 [코드](https://docs.spring.io/spring-security/reference/5.8/servlet/authentication/passwords/index.html#customize-global-authentication-manager)를 볼 수 있습니다.
 
 ```
 @Bean
@@ -31,7 +31,7 @@ public UserDetailsService jdbcUserDetailsService() {
 	return userDetailsManager;
 }
 ```
-데이터베이스 사용자 테이블로부터 사용자 정보를 조회하기 때문에 `DataSource`가 필요합니다. 사용자 테이블 스키마는 스프링 시큐리티가 제공하는 [ddl](https://docs.spring.io/spring-security/reference/5.8/servlet/authentication/passwords/jdbc.html#servlet-authentication-jdbc-schema)을 참고하여 만듭니다. 사용된 SQL문은 [여기](https://github.com/boyd-dev/demo-security/blob/main/example/demog-mvc/src/main/resources/members.sql)에 있습니다.
+데이터베이스 사용자 테이블로부터 사용자 정보를 조회하기 때문에 `DataSource`가 필요합니다. 사용자 테이블 스키마는 스프링 시큐리티가 제공하는 [ddl](https://docs.spring.io/spring-security/reference/5.8/servlet/authentication/passwords/jdbc.html#servlet-authentication-jdbc-schema)을 참고하여 만듭니다. 예제에 사용된 SQL문은 [여기](https://github.com/boyd-dev/demo-security/blob/main/example/demog-mvc/src/main/resources/members.sql)에 있습니다.
 
 패스워드 인코더 역시 기본으로 제공되는 [`DelegatingPasswordEncoder`](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/crypto/password/DelegatingPasswordEncoder.html)를 사용합니다. 이렇게 기본만을 사용하는 경우 작성하는 코드는 아래와 같은 빈 하나입니다.
 
@@ -53,7 +53,7 @@ public UserDetailsService jdbcUserDetailsService() {
 이렇게 하면 스프링 시큐리티 보안 필터에 의해 아이디 패스워드 인증을 통과한 경우에만 요청한 URL의 컨트롤러가 실행될 수 있습니다.
 
 ## SecurityContext
-인증 후에 사용자 정보를 가져오려면 아래와 같이 `SecurityContext`를 가져와야 합니다.
+인증 후에 로직 내에서 사용자 정보를 참조하려면 아래와 같이 `SecurityContext`를 가져와야 합니다.
 
 ```
 SecurityContext context = SecurityContextHolder.getContext();

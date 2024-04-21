@@ -58,7 +58,9 @@ public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletI
 }
 ```
 여기서 눈여겨 볼 것은 시큐리티 구성 클래스는 `getServletConfigClasses`에서 리턴해주는 것으로 합니다. 스프링 MVC의 컨텍스트는 보통 [두 개로 나누어져](https://github.com/boyd-dev/demo-mvc/blob/main/docs/04/README.md) 있는데, 시큐리티의 빈들은 서블릿 컨텍스트가 있는 웹 컨텍스트에 배치하는 것을 [권장](https://docs.spring.io/spring-security/reference/5.8/servlet/configuration/java.html#abstractsecuritywebapplicationinitializer-with-spring-mvc
-)하고 있기 때문입니다.  
+)하고 있기 때문입니다.
+
+>The reason for this is that Spring Security needs to be able to inspect some Spring MVC configuration in order to appropriately configure underlying request matchers, so they need to be in the same application context. Placing Spring Security in getRootConfigClasses places it into a parent application context that may not be able to find Spring MVC’s HandlerMappingIntrospector.
 
 또 한가지 고려할 것은 스프링 시큐리티 5.8 이후 버전에서는 컨텍스트 공유가 안되거나 `springSecurityFilterChain`을 찾을 수 없다는 [버그](https://github.com/spring-projects/spring-security/issues/14636)가 있기 때문에 서블릿 컨텍스트인 `getServletConfigClasses`에 서비스와 레포지토리 빈들을 모두 배치하도록 하겠습니다.
 
@@ -92,7 +94,7 @@ public class SecurityConfig {
 - `authorizeHttpRequests`   
 HTTP 요청에 대해 어떤 제약을 두고 싶을 때 사용합니다. 이 메소드는 [`Customizer<T>`](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/config/Customizer.html)라는 제너릭 함수형 인터페이스를 인자로 받습니다. 따라서 위의 코드처럼 람다 표현식을 전달할 수 있습니다.  
 `Customizer<T>`는 인자로 전달받는 타입 T 객체를 설정(customizations)하는 역할을 합니다. 여기서는 `AuthorizationManagerRequestMatcherRegistry` 타입을 인자로 받는데, 이것을 설정하는 것이라고 보면 되겠습니다. 이름에서 알 수 있는 것처럼 HTTP 요청에 따라 허용 또는 차단 등의 규칙을 정하는 것이라고 생각할 수 있습니다.  
-`authorize.anyRequest().authenticated()`은 모든 요청이 인증을 받아야 한다는 것을 의미합니다. 즉 로그인을 거쳐야 시큐리티의 보안 필터를 통과할 수 있습니다. `Customizer<T>`는 리턴 없이 `AuthorizationManagerRequestMatcherRegistry`으로 이어지기 때문에 원하는 설정을 계속 추가할 수 있습니다. 예를 들어 정적 컨텐츠가 있는 URL 경로 `/resources/**`에 대해서 모든 요청을 허용하고 나머지는 인증을 거치도록 하고 싶다면 아래와 같이 하면 되겠습니다.  
+`authorize.anyRequest().authenticated()`은 모든 요청이 인증을 받아야 한다는 것을 의미합니다. 즉 로그인을 거쳐야 시큐리티의 보안 필터를 통과할 수 있습니다. `Customizer<AuthorizeHttpRequestsConfigurer.AuthorizationManagerRequestMatcherRegistry>`는 리턴 없이 `AuthorizationManagerRequestMatcherRegistry`으로 이어지기 때문에 원하는 설정을 계속 추가할 수 있습니다. 예를 들어 정적 컨텐츠가 있는 URL 경로 `/resources/**`에 대해서 모든 요청을 허용하고 나머지는 인증을 거치도록 하고 싶다면 아래와 같이 하면 되겠습니다.  
    ```
    http.authorizeHttpRequests((authorize) -> authorize
 			.requestMatchers(new String[]{"/resources/**"}).permitAll()				
