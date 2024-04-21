@@ -6,7 +6,7 @@
 
 - JDK 17
 - Spring MVC 5.3.32
-- Spring Security 5.8.11
+- Spring Security 5.8.10
 - Servlet 4
 - Thymeleaf 3
 - Tomcat 9.0.87
