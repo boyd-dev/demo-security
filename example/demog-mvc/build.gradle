@@ -1,0 +1,80 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = '17'
+}
+
+ext {
+    springVersion = '5.3.33'
+    springJpaVersion = '2.7.18'
+    springSecurityVersion = '5.8.10'
+}
+
+war {
+   archiveBaseName = 'demo-mvc'
+}
+
+
+dependencies {
+
+    implementation "org.springframework:spring-context:$springVersion"   
+    implementation "org.springframework:spring-webmvc:$springVersion" 
+    
+    compileOnly 'javax.servlet:javax.servlet-api:4.0.0'
+    
+    // Thymeleaf
+    implementation 'org.thymeleaf:thymeleaf:3.1.2.RELEASE'
+    implementation 'org.thymeleaf:thymeleaf-spring5:3.1.2.RELEASE'    
+    
+    // Security
+    //implementation "org.springframework.security:spring-security-core:$springSecurityVersion"
+    implementation ("org.springframework.security:spring-security-web:$springSecurityVersion") {
+         exclude group: 'org.springframework', module: 'spring-jdbc'
+         exclude group: 'org.springframework', module: 'spring-tx'
+         exclude group: 'org.springframework', module: 'spring-web' 
+    }
+          
+    implementation "org.springframework.security:spring-security-config:$springSecurityVersion"
+    
+    // Test
+    // Junit5
+    testImplementation "org.springframework:spring-test:$springVersion"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    
+    // Data
+    implementation "org.springframework:spring-jdbc:$springVersion"
+    implementation "org.springframework:spring-orm:$springVersion"
+    implementation 'org.apache.commons:commons-dbcp2:2.9.0'    
+    runtimeOnly 'com.mysql:mysql-connector-j:8.0.33'
+    
+    // Hibernate
+    implementation 'org.hibernate:hibernate-core:5.3.36.Final'
+    
+    // Spring JPA
+    implementation "org.springframework.data:spring-data-jpa:$springJpaVersion"
+        
+    
+    // Logging    
+    implementation 'org.slf4j:slf4j-api:2.0.12'
+    implementation 'ch.qos.logback:logback-classic:1.5.3'    
+    
+    
+}
+
+
+test {
+    useJUnitPlatform()
+    testLogging.showStandardStreams=true
+    //include '**/*Test.class'
+    include 'com/foo/**/*Test.class'    
+}
+

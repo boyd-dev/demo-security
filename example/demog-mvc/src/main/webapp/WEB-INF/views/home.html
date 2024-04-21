@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>    
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <span th:text="${serverTime}" />
+    
+    <form method="post" th:action="@{'/home'}">
+        <input type="submit"/>   
+    </form>    
+    <a th:href="@{'/login?logout'}">[Logout]</a>    
+</body>
+</html>
