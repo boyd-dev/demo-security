@@ -73,7 +73,7 @@ public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletI
 @EnableWebSecurity(debug = true)
 public class SecurityConfig {
 
-   @Bean
+    @Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
             .httpBasic(Customizer.withDefaults())
@@ -119,6 +119,7 @@ HTTP 기본 인증(아이디와 패스워드)을 수행합니다. 이것 역시 
     <input type="submit"/>   
 </form>
 ```
+위의 코드는 아래와 같이 변환됩니다.
 ```
 <form method="post" action="/demo-mvc/home">
 	<input type="hidden" name="_csrf" value="7228a6ee-ccbd-4a6c-a473-ec4a83c030b5">

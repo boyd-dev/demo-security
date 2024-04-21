@@ -1,9 +1,7 @@
 ## 아이디 패스워드 인증
-아이디와 패스워드는 가장 일반적이고 보편적인 인증 방식입니다. "로그인"이란 데이터베이스에 저장된 사용자 정보로부터 입력된 사용자를 식별하고 패스워드를 확인하여 인증하는 방식을 떠올리는 경우가 많습니다.  
+아이디와 패스워드는 가장 일반적이고 보편적인 인증 방식입니다. "로그인"이라고 하면 데이터베이스에 저장된 사용자 정보로부터 입력된 사용자를 식별하고 패스워드를 확인하여 인증하는 방식을 떠올리는 경우가 많습니다. 스프링 시큐리티는 이렇게 사용자가 미리 입력한 정보를 바탕으로 인증하는 방식으로 [아이디 패스워드](https://docs.spring.io/spring-security/reference/5.8/servlet/authentication/passwords/index.html#servlet-authentication-unpwd) 인증을 지원합니다.  
 
-스프링 시큐리티는 이렇게 사용자가 미리 입력한 정보를 바탕으로 인증하는 방식으로 [아이디 패스워드](https://docs.spring.io/spring-security/reference/5.8/servlet/authentication/passwords/index.html#servlet-authentication-unpwd) 인증을 지원합니다.  
-
-인증을 관리하는 인터페이스로 `AuthenticationManager`가 있습니다. 말 그대로 "인증 관리자"입니다. 그런데 인증이라는 것도 다양한 방식이 있을 수 있으므로 다양한 인증 방식들을 제공하는 여러 `AuthenticationProvider`들이 존재할 수 있습니다. `AuthenticationProvider`를 구현한 [클래스](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/authentication/AuthenticationProvider.html)들을 보면 시큐리티가 지원하는 인증 방식들을 알 수 있습니다. 
+인증을 관리하는 인터페이스로 `AuthenticationManager`가 있습니다. 말 그대로 "인증 관리자"입니다. 그런데 인증이라는 것도 다양한 방식이 있을 수 있으므로 다수의 인증 방식들을 제공하는 여러 `AuthenticationProvider`들이 존재할 수 있습니다. `AuthenticationProvider`를 구현한 [클래스](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/authentication/AuthenticationProvider.html)들을 보면 시큐리티가 지원하는 인증 방식들을 알 수 있습니다. 
 
 시큐리티는 `AuthenticationManager` 구현체로 `ProviderManager`를 가지고 있습니다. 이 클래스는 생성자 인자로 `AuthenticationProvider`를 받습니다. 데이터베이스(JDBC)로부터 사용자 정보를 확인할 수 있도록 마련된 `AuthenticationProvider`의 구현체는 `DaoAuthenticationProvider`입니다. 따라서 아래와 유사한 예제 [코드](https://docs.spring.io/spring-security/reference/5.8/servlet/authentication/passwords/index.html#customize-global-authentication-manager)를 볼 수 있습니다.
 
@@ -11,7 +9,7 @@
 @Bean
 public AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
 		
-    DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+	DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
 	authenticationProvider.setUserDetailsService(userDetailsService);
 	authenticationProvider.setPasswordEncoder(passwordEncoder);
 
@@ -52,7 +50,7 @@ public UserDetailsService jdbcUserDetailsService() {
 
 `setUsersByUsernameQuery`와 `setAuthoritiesByUsernameQuery`에 작성해주는 SQL의 select 순서는 맞추어야 합니다. 즉 ID,PASSWORD,ENABLED 순서대로 select 합니다.  
 
-이렇게 하면 스프링 시큐리티 보안 필터에 의해 아이디 패스워드가 일치하는 경우에만 요청한 URL의 컨트롤러가 실행될 수 있습니다.
+이렇게 하면 스프링 시큐리티 보안 필터에 의해 아이디 패스워드 인증을 통과한 경우에만 요청한 URL의 컨트롤러가 실행될 수 있습니다.
 
 ## SecurityContext
 인증 후에 사용자 정보를 가져오려면 아래와 같이 `SecurityContext`를 가져와야 합니다.
