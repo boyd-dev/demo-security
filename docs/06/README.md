@@ -76,7 +76,7 @@ public ClientRegistrationRepository clientRegistrationRepository() {
 
 스프링 시큐리티는 `ClientRegistrationRepository` 구현체로 `InMemoryClientRegistrationRepository`를 제공합니다. 이것은 `ClientRegistration`을 배열로 전달 받습니다. 따라서 구글 외에도 여러 인증 공급자를 추가할 수 있습니다. 각 공급자들은 `withRegistrationId("google")`에서 지정한 아이디로 구분할 수 있습니다.  
 
-참고로 시큐리티는 [`CommonOAuth2Provider`](https://github.com/spring-projects/spring-security/blob/main/config/src/main/java/org/springframework/security/config/oauth2/client/CommonOAuth2Provider.java)에서 4개의 공급자를 프리셋 형태로 제공하므로 이것을 이용해도 되겠습니다.  
+참고로 시큐리티는 [`CommonOAuth2Provider`](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/config/oauth2/client/CommonOAuth2Provider.html)에서 4개의 공급자를 프리셋 형태로 제공하므로 이것을 이용해도 되겠습니다.  
 
 이 예제에서는 직접 설정합니다. 관련 정보들은 `oauth2.properties` 파일로 분리시켜서 빈에서 참조하도록 했습니다. 이렇게 정의된 빈은 다음과 같이 사용할 수 있습니다.  
 
