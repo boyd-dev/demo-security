@@ -13,8 +13,7 @@ OAuth2Login에서는 아래와 같이 변경됩니다.
 ```
 http.authorizeHttpRequests((authorize) -> authorize
 				.requestMatchers(new String[]{"/resources/**"}).permitAll()
-				.anyRequest().authenticated()
-			 )		
+				.anyRequest().authenticated())		
 		    .oauth2Login(oauth2 -> ...);
 
 ```
