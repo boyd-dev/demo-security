@@ -5,7 +5,7 @@
 http.authorizeHttpRequests((authorize) -> authorize
 				.requestMatchers(new String[]{"/resources/**"}).permitAll()
 				.anyRequest().authenticated())
-		    .httpBasic(Customizer.withDefaults())
+			.httpBasic(Customizer.withDefaults())
 			.formLogin(Customizer.withDefaults());
 ```
 OAuth2Login에서는 아래와 같이 변경됩니다.
@@ -35,7 +35,7 @@ OAuth2LoginAuthenticationFilter
 
 >ClientRegistration is a representation of a client registered with an OAuth 2.0 or OpenID Connect 1.0 Provider.
 
-말 그대로 구글이나 네이버처럼 사용자 정보를 가지고 있는 "Authorization Server"에 대한 정보를 말합니다. 즉 사용자 정보에 대한 접근 허가권을 얻기 위해서는 구글 같은 "OAuth 2.0 Provider"에게 허가권을 요청해야 하고 이를 위해서는 미리 요청 정보를 처리할 수 있도록 구글 쪽에 사전 작업을 해야 합니다. 그리고 이에 대한 정보를 바탕으로 Access Token을 받을 수 있게 되는 것입니다. 
+말 그대로 구글이나 네이버처럼 사용자 정보를 가지고 있는 "Authorization Server"에 대한 정보를 말합니다. 즉 사용자 정보에 대한 접근 허가권을 얻기 위해서는 구글 같은 "OAuth 2.0 Provider"에게 허가권을 요청해야 하고 이를 위해서는 미리 구글 쪽에 사전 작업을 해야 합니다. 그리고 이에 대한 정보를 바탕으로 Access Token을 받을 수 있게 되는 것입니다. 
 
 이 예제에서는 구글을 기준으로 합니다. 아래 구글 클라우드에 접속하여 사용자 인증정보 > OAuth 2.0 클라이언트 ID 메뉴에서 관련 정보를 등록할 수 있습니다.
 
@@ -45,37 +45,37 @@ https://console.developers.google.com
 
 ![fig04](../img/fig04.png)
 
-OAuth 2의 "Authorization Code Grant" 흐름을 다시 떠올려 보면, 구글 로그인을 성공한 후에, 구글은 설정된 "리디렉션 URI"로 Access Token을 발급받을 수 있는 "Authorization Code"을 보내도록 되어 있습니다. 당연히 이것을 받는 곳은 내가 만든 애플리케이션("Client"가 됩니다)이 되어야 하므로 `http://localhost:8080/demo-mvc/oauth2/callback`으로 설정합니다.  
+OAuth 2의 "Authorization Code Grant" 흐름을 다시 떠올려 보면, 구글 로그인을 성공한 후에, 구글은 설정된 "리디렉션 URI"로 Access Token을 발급받을 수 있는 "Authorization Code"을 보내도록 되어 있습니다. 당연히 이것을 받는 쪽은 내가 만든 애플리케이션("Client"가 됩니다)이 되어야 하므로 `http://localhost:8080/demo-mvc/oauth2/callback`으로 설정합니다.  
 
-구글은 이와 함께 "Client"를 식별할 수 있는 "클라이언트 ID"와 "클라이언트 비밀번호"를 발급합니다. 
+구글은 이와 함께 "Client"를 식별할 수 있는 "클라이언트 ID"와 "클라이언트 보안 비밀번호"를 발급합니다. 
 
 ![fig05](../img/fig05.png)
 
-그런데 구글 외에도 "OAuth 2.0 Provider"들은 많이 있습니다. 따라서 이러한 정보들을 모아놓은 저장소가 있어야 하는데 이것이 바로 `ClientRegistrationRepository`입니다. 아래 코드를 보면 보다 분명해집니다. `ClientRegistrationRepository` 빈을 다음과 같이 만들 수 있습니다. 
+그런데 구글 외에도 "OAuth 2.0 Provider"들은 많이 있습니다. 따라서 이러한 정보들을 모아놓은 저장소가 있어야 하는데 이것이 바로 `ClientRegistrationRepository`입니다. 아래 코드를 보면 이해하기 쉬울 것입니다. `ClientRegistrationRepository` 빈을 다음과 같이 만들 수 있습니다. 
 
 ```
 @Bean
 public ClientRegistrationRepository clientRegistrationRepository() {
 		
-		ClientRegistration google = ClientRegistration.withRegistrationId("google")
-		    .clientId(env.getProperty("google.clientId"))
-		    .clientSecret(env.getProperty("google.clientSecret"))
-		    .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-		    .authorizationUri(env.getProperty("google.authorizationUri"))		    
-		    .tokenUri(env.getProperty("google.accessTokenUri"))
-		    .redirectUri(env.getProperty("google.redirectUri"))
-		    .scope(env.getProperty("google.scope").split(","))
-		    .userInfoUri(env.getProperty("google.userInfoUri"))
-		    .userNameAttributeName("name")
-		    .build();
+	ClientRegistration google = ClientRegistration.withRegistrationId("google")
+		.clientId(env.getProperty("google.clientId"))
+		.clientSecret(env.getProperty("google.clientSecret"))
+		.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+		.authorizationUri(env.getProperty("google.authorizationUri"))		    
+		.tokenUri(env.getProperty("google.accessTokenUri"))
+		.redirectUri(env.getProperty("google.redirectUri"))
+		.scope(env.getProperty("google.scope").split(","))
+		.userInfoUri(env.getProperty("google.userInfoUri"))
+		.userNameAttributeName("name")
+		.build();
 		
-		InMemoryClientRegistrationRepository clientRegisterationRepository = new InMemoryClientRegistrationRepository(new ClientRegistration[] {google});
-		return clientRegisterationRepository;
+	InMemoryClientRegistrationRepository clientRegisterationRepository = new InMemoryClientRegistrationRepository(new ClientRegistration[] {google});
+	return clientRegisterationRepository;
 }
 
 ```
 
-스프링 시큐리티는 `ClientRegistrationRepository` 구현체로 `InMemoryClientRegistrationRepository`를 제공합니다. 이것은 `ClientRegistration`을 배열로 전달 받습니다. 따라서 구글 외에도 여러 소셜 로그인 공급자를 추가할 수 있습니다. 각 공급자들은 `withRegistrationId("google")`에서 지정한 아이디로 구분할 수 있습니다.  
+스프링 시큐리티는 `ClientRegistrationRepository` 구현체로 `InMemoryClientRegistrationRepository`를 제공합니다. 이것은 `ClientRegistration`을 배열로 전달 받습니다. 따라서 구글 외에도 여러 인증 공급자를 추가할 수 있습니다. 각 공급자들은 `withRegistrationId("google")`에서 지정한 아이디로 구분할 수 있습니다.  
 
 참고로 시큐리티는 [`CommonOAuth2Provider`](https://github.com/spring-projects/spring-security/blob/main/config/src/main/java/org/springframework/security/config/oauth2/client/CommonOAuth2Provider.java)에서 4개의 공급자를 프리셋 형태로 제공하므로 이것을 이용해도 되겠습니다.  
 
@@ -97,7 +97,6 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		    
 		return http.build();
 }
-
 ```
 
 ## redirectionEndpoint
@@ -138,12 +137,10 @@ public class MyOAuth2UserService extends DefaultOAuth2UserService {
 		user.getAttributes().forEach((k,v)-> System.out.println(k + "=" + v));
 		user.getAuthorities().forEach(grantedAuth -> System.out.println(grantedAuth));
 		return user;
-	}	
-	
+	}
 }
-
 ```
-`DefaultOAuth2UserService`의 기능을 그대로 이용하면서 `loadUser`만을 오버라이드했습니다. 이렇게 하면 구글에서 전송된 사용자 정보와 시큐리티가 추가한 정보들을 출력해볼 수 있습니다.
+`DefaultOAuth2UserService`의 기능을 그대로 이용하면서 `loadUser`만을 오버라이드했습니다. 이렇게 해서 구글에서 전송된 사용자 정보와 시큐리티가 추가한 정보들을 출력해볼 수 있습니다.
 
 ```
 sub=100...

@@ -1,4 +1,4 @@
-## OAUTH 2.0
+## OAuth 2.0
 ["OAuth 2.0 Authorization Framework"](https://datatracker.ietf.org/doc/html/rfc6749)은 사용자의 정보를 제 3자(다른 애플리케이션)에게 제공하기 위해 해당 정보의 소유자로부터 그 사용을 안전하게 "허가(authorization)"받는 규칙을 정하는 프로토콜입니다.
 
 흔히 OAuth 2를 "소셜 로그인 기능"이라고 하는데, 구글이나 네이버 같은 서비스가 가지고 있는 사용자 정보를 다른 애플리케이션에서 접근하여 자신의 로그인을 위해 그것을 활용할 수 있기 때문입니다. 여기서 유념할 것은 OAuth 2는 사실 "authorization"에 관한 프로토콜이고 로그인과 같은 "authentication"을 규정하는 것은 아니라는 점입니다. 이 두 가지를 항상 명확히 구분할 필요는 없지만 차이가 있습니다.  
@@ -13,7 +13,7 @@
 
 
 ## OAuth2 로그인
-로그인 기능으로 활용할 때 OAuth 2의 "Authorization Code Grant" 흐름에 따라 진행됩니다. OAuth 2 공식 문서의 그림을 그대로 옮겨 보겠습니다. 
+로그인 기능으로 활용할 때 OAuth 2의 "Authorization Code Grant" 흐름에 따라 진행됩니다. OAuth 2 공식 문서의 그림을 그대로 옮기면 아래와 같습니다. 
 
 ![fig03](../img/fig03.png)
 
@@ -22,7 +22,7 @@ Resource Owner는 사용자를 말합니다. 사용자는 구글이나 네이버
 좀더 자세한 설명은 [여기](https://datatracker.ietf.org/doc/html/rfc6749#section-4.1)를 참고하세요. 소셜 로그인은 보기에는 간단하지만 뒤에서 일어나는 일은 다소 복잡합니다. 스프링 시큐리티는 이러한 과정을 단순화시키는 역할을 합니다. 
 
 ## 라이브러리 
-과거 스프링에서는 "Spring Security OAuth2" 개발은 시큐리티와 별개로 진행되었습니다. 그래서 스프링 시큐리티 4.x는 [`spring-security-oauth2`](https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2/2.5.2.RELEASE) 디펜던시를 추가해야 했습니다. 하지만 스프링 시큐리티 5부터 시큐리티에 통합되었기 때문에 이것이 필요하지 않습니다. 다만 "OAuth2 Client"의 기능 때문에 `spring-security-oauth2-client` 라이브러리가 있어야 합니다. 그리고 json 컨버터로 사용할 `jackson-databind`도 추가합니다(토큰과 사용자 정보가 json 형태로 전송되기 때문에).
+과거 스프링에서는 "Spring Security OAuth2" 개발은 시큐리티와 독립적으로 진행되었습니다. 그래서 스프링 시큐리티 4.x는 [`spring-security-oauth2`](https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2/2.5.2.RELEASE) 디펜던시를 추가해야 했습니다. 하지만 스프링 시큐리티 5부터 시큐리티에 통합되었기 때문에 이것이 필요하지 않습니다. 다만 "OAuth2 Client"의 기능 때문에 `spring-security-oauth2-client` 라이브러리가 있어야 합니다. 그리고 json 컨버터로 사용할 `jackson-databind`도 추가합니다(토큰과 사용자 정보가 json 형태로 전송되기 때문에).
 
 ```
 implementation "org.springframework.security:spring-security-oauth2-client:$springSecurityVersion"
