@@ -1,6 +1,6 @@
 ## 스프링 Security
 
-이 글은 자바 웹 애플리케이션을 만들 때 사용할 수 있는 스프링 Security에 대해 간단히 알아보려는 목적으로 작성되었습니다. 여기서는 스프링 부트를 사용하지 않고 스프링 프레임워크 5를 사용합니다. 예제의 소스는 [여기](https://github.com/boyd-dev/demo-security/tree/main/example)에 있습니다.
+이 글은 자바 웹 애플리케이션을 만들 때 사용할 수 있는 스프링 Security에 대해 간단히 알아보려는 목적으로 작성되었습니다. 여기서는 스프링 부트를 사용하지 않고 스프링 프레임워크 5를 사용합니다. 예제의 소스는 [여기](https://github.com/boyd-dev/demo-security/tree/main/example/demog-mvc)에 있습니다. OAuth 2 소스는 [여기](https://github.com/boyd-dev/demo-security/tree/main/example/demog-oauth2)를 참조하세요.
 
 예제 환경은 다음과 같습니다.
 
@@ -22,7 +22,8 @@
 2. [라이브러리 설정](02/README.md)
 3. [스프링 시큐리티 설정](03/README.md)
 4. [아이디 패스워드 인증](04/README.md)
-5. 
+5. [OAuth 2.0 인증(I)](05/README.md)
+6. [OAuth 2.0 인증(II)](06/README.md)
 
 
 참고  

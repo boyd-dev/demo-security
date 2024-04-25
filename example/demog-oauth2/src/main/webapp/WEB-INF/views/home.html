@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>    
+<meta charset="UTF-8">
+<style> 
+input[type=button] {
+  background-color: #346eeb;
+  border: none;
+  color: white;
+  padding: 14px 28px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-family: Consolas, Courier;
+  font-weight: bold;
+  font-size: large;
+}
+</style>
+<title>Insert title here</title>
+</head>
+<body>
+    <span th:text="${serverTime}" />
+    
+    
+    <!--
+    <form method="post" th:action="@{'/home'}">
+        <input type="submit"/>           
+    </form>
+    -->
+    <!--    
+    <a th:href="@{'/login?logout'}">[Logout]</a>
+    -->
+    
+    <form method="post" th:action="@{'/home'}">
+        <input type="button" onclick="fn_submit()" value="Submit"/>        
+        <input type="button" onclick="fn_logout()" value="Logout"/>        
+    </form>
+    
+    <script th:inline="javascript">
+        
+        var fn_submit = function() {
+            document.forms[0].submit();            
+        }
+        
+        var fn_logout = function() {
+            document.forms[0].action = /*[[@{'/signout'}]]*/"";
+            document.forms[0].submit();
+        }
+        
+    </script>
+    
+</body>
+</html>
