@@ -184,13 +184,12 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 @RequestMapping(value = {"/", "/home"}, method = {RequestMethod.GET, RequestMethod.POST})
 public String home(Locale locale, Model model, Authentication auth) {
 		
-		logger.info("{} logged in.", auth.getPrincipal());
+	logger.info("{} logged in.", auth.getPrincipal());
 		
-		...
+	...
 		
-		return "home";
+	return "home";
 }
-
 ```
 아이디 패스워드 인증의 `UserDetailsService`와 마찬가지로 `OAuth2UserService` 인터페이스를 구현한 커스텀 클래스로 대체해서 사용자 정보를 나의 애플리케이션에 맞게 구성할 수 있을 것입니다.  
 
