@@ -199,7 +199,7 @@ public String home(Locale locale, Model model, Authentication auth) {
 
 ![fig06](../img/fig06.png)
 
-이 예제에서는 디폴트 로그아웃 URL을 `/signout` 변경하고 로그아웃 후에는 구글에서 발급한 Access Token을 폐기(revoke)하는 로직을 추가하였습니다. 전체 소스는 [여기](https://github.com/boyd-dev/demo-security/tree/main/example/demog-oauth2)를 참조하기 바랍니다.
+이 예제에서는 디폴트 로그아웃 URL을 변경하고 로그아웃 후에는 구글에서 발급한 Access Token을 폐기(revoke)하는 로직을 추가하였습니다. 전체 소스는 [여기](https://github.com/boyd-dev/demo-security/tree/main/example/demog-oauth2)를 참조하기 바랍니다.
 
 
 [처음](../README.md)
