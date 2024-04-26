@@ -191,6 +191,19 @@ public String home(Locale locale, Model model, Authentication auth) {
 	return "home";
 }
 ```
+또는 `@AuthenticationPrincipal`을 사용하여 사용자 정보를 받을 수 있습니다.
+
+```
+@RequestMapping(value = {"/", "/home"}, method = {RequestMethod.GET, RequestMethod.POST})
+public String home(Locale locale, Model model, @AuthenticationPrincipal OAuth2User user) {
+		
+	logger.info("{} logged in.", user.getName());
+
+	...
+		
+	return "home";
+}
+```
 아이디 패스워드 인증의 `UserDetailsService`와 마찬가지로 `OAuth2UserService` 인터페이스를 구현한 커스텀 클래스로 대체해서 사용자 정보를 나의 애플리케이션에 맞게 구성할 수 있을 것입니다.  
 
 앞서 언급한 것처럼 `oauth2Login`은 단순히 인증을 위해 OAuth 2를 이용하는 것이므로 인증된 사용자를 "Client" 애플리케이션에서 어떻게 사용자로 등록시키고 부가적인 정보를 구성할 것이냐는 설계 방향에 따라 다를 수 있습니다. OAuth 2 공급자에게 지속적으로 사용자 정보를 요청해야 한다면 `oauth2Client`를 적극적으로 이용할 수도 있을 것입니다. 이 경우에는 Refresh Token을 활용할 필요가 있습니다. 이에 대한 방법은 [문서](https://docs.spring.io/spring-security/reference/5.8/servlet/oauth2/client/index.html)를 참조하세요.
