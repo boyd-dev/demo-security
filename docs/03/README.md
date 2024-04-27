@@ -15,7 +15,7 @@
 
 이 예제에서는 `web.xml`을 <b>사용하지 않고</b> `AbstractAnnotationConfigDispatcherServletInitializer`와 `@Configuration` 구성 클래스로 스프링을 설정합니다. 이에 대한 자세한 설명은 [여기](https://github.com/boyd-dev/demo-mvc/tree/main/docs/05)를 참고하세요. 따라서 시큐리티 설정도 구성 클래스를 사용할 것입니다.
 
-스프링 시큐리티의 보안 필터를 활성화시키는 것은 아래와 같은 짧은 클래스로 대체하게 됩니다(존재하면 자동으로 부트스트랩 됩니다).
+스프링 시큐리티의 보안 필터를 활성화시키는 것은 아래와 같은 짧은 클래스로 대체하게 됩니다(존재하면 자동으로 부트스트랩 됩니다). 
 
 ```
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
@@ -23,8 +23,15 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
 public class MyWebSecurityInitializer extends AbstractSecurityWebApplicationInitializer{
 }
 ```
+`AbstractSecurityWebApplicationInitializer` 클래스의 API 설명을 인용합니다. `DelegatingFilterProxy`가 등록하는 시큐리티의 필터들은 다른 필터들 보다 앞에 배치되기 때문에 항상 먼저 실행됩니다.
 
-그리고 구성 클래스로 세부적인 설정을 합니다. 스프링 시큐리티 구성 클래스는 `@EnableWebSecurity` 어노테이션을 사용합니다. `debug = true`는 개발과정에서 보안 필터의 실행을 자세히 보기 위함입니다.
+>Registers the DelegatingFilterProxy to use the springSecurityFilterChain before any other registered Filter. 
+
+`DelegatingFilterProxy` 필터는 실제 필터의 역할을 수행하는 시큐리티 "필터 빈"들을 실행합니다. 이것이 앞서 살펴본 여러 개의 시큐리티 필터 체인이 되는 것입니다. 서블릿 컨테이너는 보통 필터들을 먼저 생성하기 때문에 `DelegatingFilterProxy`가 먼저 등록되고나서 나중에 컨텍스트 로더에 의해 시큐리티 필터 빈들이 로드될 수 있습니다.
+
+>Another benefit of DelegatingFilterProxy is that it allows delaying looking Filter bean instances. This is important because the container needs to register the Filter instances before the container can startup. However, Spring typically uses a ContextLoaderListener to load the Spring Beans which will not be done until after the Filter instances need to be registered.
+
+다음에는 구성 클래스로 세부적인 설정을 합니다. 스프링 시큐리티 구성 클래스는 `@EnableWebSecurity` 어노테이션을 사용합니다. `debug = true`는 개발과정에서 보안 필터의 실행을 자세히 보기 위함입니다.
 
 ```
 @Configuration
@@ -87,7 +94,13 @@ public class SecurityConfig {
 ```
 이 코드는 약간 복잡해 보이지만 시큐리티 설정이 어떻게 이루어지는지 잘 보여주고 있습니다("람다 DSL"이라고 하는 방식).  
 
-인자로 전달받는 `HttpSecurity` 클래스는 과거 `web.xml`에서 security 네임스페이스의 `<security:http>`에 해당하는 것이라고 생각하면 되겠습니다. `HttpSecurity` 클래스의 메소드들은 많기 때문에 [API 문서](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/config/annotation/web/builders/HttpSecurity.html)를 참조하는 것이 좋습니다. 
+인자로 전달받는 `HttpSecurity` 클래스는 과거 `web.xml`에서 security 네임스페이스의 `<security:http>`에 해당하는 것이라고 생각하면 되겠습니다. 앞서 그림에서 `FilterChainProxy`라는 필터가 중간에서 시큐리티의 각 필터들에게 역할을 위임하는 구조인데, `FilterChainProxy` 대신 `HttpSecurity` 설정을 하면 자동으로 동작하도록 되어 있습니다.
+
+`FilterChainProxy`의 API [설명](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/web/FilterChainProxy.html)은 아래와 같습니다.  
+
+>Delegates Filter requests to a list of Spring-managed filter beans. As of version 2.0, you shouldn't need to explicitly configure a FilterChainProxy bean in your application context unless you need very fine control over the filter chain contents. Most cases should be adequately covered by the default <security:http /> namespace configuration options.
+
+`HttpSecurity` 클래스의 메소드들은 많기 때문에 [API 문서](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/config/annotation/web/builders/HttpSecurity.html)를 참조하는 것이 좋습니다. 
 
 위의 코드를 간단히 설명하면 아래와 같습니다.
 
