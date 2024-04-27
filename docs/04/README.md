@@ -46,7 +46,7 @@ public UserDetailsService jdbcUserDetailsService() {
 	return userDetailsManager;
 }
 ```
-데이터베이스에는 미리 사용자 테이블과 권한(role) 테이블, 데이터를 넣어주어야 합니다. 편의상 패스워드는 인코딩 없이 평문이 그대로 들어가는 방식으로 하겠습니다. 그리고 스프링이 시작될 때 SQL이 실행될 수 있도록 `DataSourceInitializer`를 사용했습니다. <b>이러한 설정은 단지 테스트를 해보려는 것이기 때문에 실제 코드에는 적용하지 말아야 합니다.</b>  
+데이터베이스에는 미리 사용자 테이블과 권한(role) 테이블, 데이터를 넣어주어야 합니다. 편의상 패스워드는 인코딩 없이 평문이 그대로 들어가는 방식으로 하겠습니다. 그리고 스프링이 시작될 때 SQL이 실행될 수 있도록 `AppConfig`에서 `DataSourceInitializer`를 사용했습니다. <b>이러한 설정은 단지 테스트를 해보려는 것이기 때문에 실제 코드에는 적용하지 말아야 합니다.</b>  
 
 `setUsersByUsernameQuery`와 `setAuthoritiesByUsernameQuery`에 작성해주는 SQL의 select 순서는 맞추어야 합니다. 즉 ID,PASSWORD,ENABLED 순서대로 select 합니다.  
 
