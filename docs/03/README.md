@@ -27,7 +27,7 @@ public class MyWebSecurityInitializer extends AbstractSecurityWebApplicationInit
 
 >Registers the DelegatingFilterProxy to use the springSecurityFilterChain before any other registered Filter. 
 
-`DelegatingFilterProxy` 필터는 실제 필터의 역할을 수행하는 시큐리티 "필터 빈"들을 실행합니다. 이것이 앞서 살펴본 여러 개의 시큐리티 필터 체인이 되는 것입니다. 서블릿 컨테이너는 보통 필터들을 먼저 생성하기 때문에 `DelegatingFilterProxy`가 먼저 등록되고나서 나중에 컨텍스트 로더에 의해 시큐리티 필터 빈들이 로드될 수 있습니다.
+`DelegatingFilterProxy` 필터는 실제 필터의 역할을 수행하는 시큐리티 "필터 빈"들을 실행합니다. 서블릿 컨테이너는 보통 필터들을 먼저 생성하기 때문에 `DelegatingFilterProxy`가 먼저 등록되고나서 나중에 컨텍스트 로더에 의해 시큐리티 필터 빈들이 로드될 수 있습니다.
 
 >Another benefit of DelegatingFilterProxy is that it allows delaying looking Filter bean instances. This is important because the container needs to register the Filter instances before the container can startup. However, Spring typically uses a ContextLoaderListener to load the Spring Beans which will not be done until after the Filter instances need to be registered.
 
