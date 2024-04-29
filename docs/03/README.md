@@ -102,7 +102,7 @@ public class SecurityConfig {
 
 `HttpSecurity` 클래스의 메소드들은 많기 때문에 [API 문서](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/config/annotation/web/builders/HttpSecurity.html)를 참조하는 것이 좋습니다. 
 
-위의 코드를 간단히 설명하면 아래와 같습니다.
+위의 코드를 간단히 설명하면
 
 - `authorizeHttpRequests`   
 HTTP 요청에 대해 어떤 제약을 두고 싶을 때 사용합니다. 이 메소드는 [`Customizer<T>`](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/config/Customizer.html)라는 제너릭 함수형 인터페이스를 인자로 받습니다. 따라서 위의 코드처럼 람다 표현식을 전달할 수 있습니다.  
