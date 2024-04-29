@@ -94,7 +94,7 @@ public class SecurityConfig {
 ```
 이 코드는 약간 복잡해 보이지만 시큐리티 설정이 어떻게 이루어지는지 잘 보여주고 있습니다("람다 DSL"이라고 하는 방식).  
 
-인자로 전달받는 `HttpSecurity` 클래스는 과거 `web.xml`에서 security 네임스페이스의 `<security:http>`에 해당하는 것이라고 생각하면 되겠습니다. 앞서 그림에서 `FilterChainProxy`라는 필터가 중간에서 시큐리티의 각 필터들에게 역할을 위임하는 구조인데, `FilterChainProxy`을 직접 설정하는 대신 `HttpSecurity`을 사용합니다.  
+인자로 전달받는 `HttpSecurity` 클래스는 과거 `web.xml`에서 security 네임스페이스의 `<security:http>`에 해당하는 것이라고 생각하면 되겠습니다. 앞서 그림에서 `FilterChainProxy`라는 빈이 중간에서 시큐리티의 각 필터 빈들에게 역할을 위임하는 구조인데, `FilterChainProxy`을 직접 설정하는 대신 `HttpSecurity`을 사용합니다.  
 
 `FilterChainProxy`의 API [설명](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/web/FilterChainProxy.html)은 아래와 같습니다.  
 
