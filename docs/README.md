@@ -26,7 +26,7 @@
 6. [OAuth 2.0 인증(II)](06/README.md)
 
 기타  
-- [OAuth2에 관한 오해](99/README.md)
+- [OAuth2 인증에 관한 오해](99/README.md)
 
 참고  
 [Spring Security 5.8 Guide](https://docs.spring.io/spring-security/reference/5.8/)  
