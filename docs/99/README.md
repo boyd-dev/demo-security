@@ -117,7 +117,7 @@ OAuth2에서는 "Authorization Server"와 "Resource Server"가 물리적으로 �
 
 OAuth2의 원래 목적에 맞게 인증 처리를 지원해주는 라이브러리로 스프링 시큐리티의 `oauth2Login` 기능을 사용할 수 있습니다. 앞의 내용과도 맥락이 같습니다: OAuth2 서비스 제공자가 발행하는 액세스 토큰으로 인증 여부를 갈음합니다. 소셜 로그인의 역할은 여기까지입니다.
 
-스프링 시큐리티의 공식 문서에는 아래와 같이 나와있습니다.
+스프링 시큐리티의 공식 [문서](https://docs.spring.io/spring-security/reference/5.8/servlet/oauth2/login/index.html)에는 아래와 같이 나와있습니다.
 
 >OAuth 2.0 Login is implemented by using the Authorization Code Grant, as specified in the OAuth 2.0 Authorization Framework and OpenID Connect Core 1.0.
 
