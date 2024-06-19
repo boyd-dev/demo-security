@@ -121,7 +121,7 @@ OAuth2의 원래 목적에 맞게 인증 처리를 지원해주는 라이브러�
 
 >OAuth 2.0 Login is implemented by using the Authorization Code Grant, as specified in the OAuth 2.0 Authorization Framework and OpenID Connect Core 1.0.
 
-`oauth2Login`는 OAuth2의 "Authorization Code Grant" 구현체입니다. 말 그대로 제3자 애플리케이션에게 사용자 정보 접근 "grant"를 주는 과정에서 발생하는 인증을 이용하는 것입니다.
+`oauth2Login`는 OAuth2의 "Authorization Code Grant"와 "OpenID Connect Core"의 구현체입니다. 말 그대로 제3자 애플리케이션에게 사용자 정보 접근 "grant"를 주는 과정에서 발생하는 인증을 이용하는 것입니다.
 
 OAuth2의 "Authorization Code Grant"는 다음과 같은 그림으로 설명되어 있습니다. 
 
