@@ -131,6 +131,14 @@ OAuth2의 "Authorization Code Grant"는 다음과 같은 그림으로 설명되�
 
 ![openidconnect](../img/openidconnect.png)
 
+"OpenID Connect Core" 표준에서 클라이언트에 해당하는 것이 RP입니다.
+
+>Relying Party (RP)  
+OAuth 2.0 Client application requiring End-User Authentication and Claims from an OpenID Provider.
+
+>OpenID Provider (OP)  
+OAuth 2.0 Authorization Server that is capable of Authenticating the End-User and providing Claims to a Relying Party about the Authentication event and the End-User.
+
 "Authorization Code Grant"에서는 액세스 토큰만을 이용해서 인증여부를 판단합니다. 액세스 토큰이 발급되었다는 것은 이미 인증을 성공했다는 것을 증명하기 때문입니다. 여기서는 리프레시 토큰은 필수가 아닙니다(앞서 말한 OAuth2 리프레시 토큰의 용도, 즉 지속적으로 OAuth2 서비스 제공자의 리소스 서버에 요청을 보내지 않는다면 말입니다). 
 
 `oauth2Login` 기능은 이제까지 살펴본 내용들의 구현체라고 할 수 있습니다. OAuth2 서비스 제공자들로부터 사용자의 인증여부를 확인하는 단계까지를 스프링 시큐리티가 처리합니다. 그 이후 사용자 정보 유지를 세션으로 할지 아니면 다시 JWT를 이용한 토큰 기반으로 할지는 선택의 문제입니다. 
