@@ -127,7 +127,7 @@ OAuth2의 "Authorization Code Grant"는 다음과 같은 그림으로 설명되�
 
 ![fig03](../img/fig03.png)
 
-위의 그림을 보면 클라이언트가 웹 브라우저가 아니라는 것을 좀 더 분명히 알 수 있습니다. 웹 브라우저에 해당하는 것은 "User Agent"입니다. 이 도식에 따르면 "Authorization Code"를 웹 브라우저가 받아서 다시 클라이언트에 전달하는데 스프링 시큐리티에서는 백엔드 서버가 직접 받아서 처리하는 부분이 약간 다릅니다. 사실 OAuth2의 간접적인 인증보다 원래부터 인증 표준인 "OpenID Connect Core"가 스프링 시큐리티 `oauth2Login`에 가깝다고 할 수 있습니다.
+위의 그림을 보면 클라이언트가 웹 브라우저가 아니라는 것을 좀 더 분명히 알 수 있습니다. 웹 브라우저에 해당하는 것은 "User Agent"입니다. 이 도식에 따르면 "Authorization Code"를 웹 브라우저가 받아서 다시 클라이언트에 전달하는데 스프링 시큐리티에서는 백엔드 서버가 직접 받아서 처리하는 부분이 약간 다릅니다. 사실 OAuth2의 간접적인 인증보다 OAuth2를 기반으로 만들어진 <b>인증</b> 표준 "OpenID Connect Core(OIDC)"가 스프링 시큐리티 `oauth2Login`에 가깝다고 할 수 있습니다.
 
 ![openidconnect](../img/openidconnect.png)
 
