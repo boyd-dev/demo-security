@@ -106,8 +106,8 @@ public class SecurityConfig {
 
 - `authorizeHttpRequests`   
 HTTP 요청에 대해 어떤 제약을 두고 싶을 때 사용합니다. 이 메소드는 [`Customizer<T>`](https://docs.spring.io/spring-security/site/docs/5.8.x/api/org/springframework/security/config/Customizer.html)라는 제너릭 함수형 인터페이스를 인자로 받습니다. 따라서 위의 코드처럼 람다 표현식을 전달할 수 있습니다.  
-`Customizer<T>`는 인자로 전달받는 타입 T 객체를 설정(customizations)하는 역할을 합니다. 여기서는 `AuthorizationManagerRequestMatcherRegistry` 타입을 인자로 받는데, 이것을 설정하는 것이라고 보면 되겠습니다. 이름에서 알 수 있는 것처럼 HTTP 요청에 따라 허용 또는 차단 등의 규칙을 정하는 것이라고 생각할 수 있습니다.  
-`authorize.anyRequest().authenticated()`은 모든 요청이 인증을 받아야 한다는 것을 의미합니다. 즉 로그인을 거쳐야 시큐리티의 보안 필터를 통과할 수 있습니다. `Customizer<AuthorizeHttpRequestsConfigurer.AuthorizationManagerRequestMatcherRegistry>`는 리턴 없이 `AuthorizationManagerRequestMatcherRegistry`으로 이어지기 때문에 원하는 설정을 계속 추가할 수 있습니다. 예를 들어 정적 컨텐츠가 있는 URL 경로 `/resources/**`에 대해서 모든 요청을 허용하고 나머지는 인증을 거치도록 하고 싶다면 아래와 같이 하면 되겠습니다.  
+`Customizer<T>`는 인자로 전달받는 타입 T 객체를 설정(customizations)하는 역할을 합니다. 여기서는 `AuthorizationManagerRequestMatcherRegistry` 타입을 인자로 받는데, 이것을 설정하는 것이라고 보면 되겠습니다. 이름에서 알 수 있는 것처럼 HTTP 요청에 따라 허용 또는 차단 등의 규칙을 등록하는 것이라고 생각할 수 있습니다.  
+`authorize.anyRequest().authenticated()`은 모든 요청이 인증을 받아야 한다는 것을 의미합니다. 즉 로그인을 거쳐야 시큐리티의 보안 필터를 통과할 수 있습니다. `AuthorizationManagerRequestMatcherRegistry`의 메소드들이 `AuthorizationManagerRequestMatcherRegistry`을 다시 리턴하면 설정을 계속 이어갈 수 있기 때문에 필요한 설정을 추가할 수 있습니다. 예를 들어 정적 컨텐츠가 있는 URL 경로 `/resources/**`에 대해서 모든 요청을 허용하고 나머지는 인증을 거치도록 하고 싶다면 아래와 같이 하면 되겠습니다.  
    ```
    http.authorizeHttpRequests((authorize) -> authorize
 			.requestMatchers(new String[]{"/resources/**"}).permitAll()				
